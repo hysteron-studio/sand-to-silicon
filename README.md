@@ -44,8 +44,8 @@ That keeps the minted originals unique.
 
 ## Collection
 
-- Rarible: <RARIBLE_COLLECTION_URL>
-- Wallet: <HYSTERON_WALLET_ADDRESS>
+- Rarible: https://rarible.com/user/0xcf99117D4Ae30f5Ad0088D0b461C9b2C3ce8912C
+- Wallet: 0xcf99117D4Ae30f5Ad0088D0b461C9b2C3ce8912C
 
 ## License
 
