@@ -280,8 +280,9 @@ def render(cv, n, name, extra=None):
     im = Image.fromarray(out, 'RGB')
     os.makedirs(f'{ROOT}/images', exist_ok=True)
     os.makedirs(f'{ROOT}/previews', exist_ok=True)
-    im.save(f'{ROOT}/images/{n:02d}.png', optimize=True)
-    im.resize((1200, 1200), Image.LANCZOS).save(f'{ROOT}/previews/{n:02d}.png')
+    stem = piece_stem(n)
+    im.save(f'{ROOT}/images/{stem}.png', optimize=True)
+    im.resize((1200, 1200), Image.LANCZOS).save(f'{ROOT}/previews/{stem}.jpg', quality=90, optimize=True)
     return im
 
 
@@ -292,9 +293,16 @@ def plate_title(n):
     return json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'titles.json')))[str(n)]
 
 
+def piece_stem(n):
+    """HYSTERON.SandToSilicon.NN.of.41.PieceName from piece_names.json."""
+    import json
+    path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'piece_names.json')
+    return json.load(open(path))[str(n)]
+
+
 def write_data(n, data):
     os.makedirs(f'{ROOT}/data', exist_ok=True)
     data = {**data, "title": data.get("title") or plate_title(n)}
     data = {k: data[k] for k in (["piece", "title"] + [k for k in data if k not in ("piece", "title")]) if k in data}
-    with open(f'{ROOT}/data/{n:02d}.json', 'w') as f:
+    with open(f'{ROOT}/data/{piece_stem(n)}.json', 'w') as f:
         json.dump(data, f, indent=2, ensure_ascii=False)
